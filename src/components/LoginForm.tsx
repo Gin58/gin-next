@@ -1,12 +1,18 @@
+import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
+import { useAuth } from "src/hooks/useAuth";
 interface LoginData {
   email: string;
   password: string;
 }
 const LoginForm: React.FC = () => {
   const { register, errors, handleSubmit } = useForm();
+  const auth = useAuth();
+  const router = useRouter();
   const onSubmit = (data: LoginData) => {
-    console.log(data);
+    return auth.signIn(data).then(() => {
+      router.push("/dashboard");
+    });
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -23,7 +29,7 @@ const LoginForm: React.FC = () => {
             ref={register({
               required: "Please enter an email",
               pattern: {
-                value: /^(([^<>()[\\]\\\\.,;:\\s@"]+(\\.[^<>()[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/,
+                value: /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/,
                 message: "Not a valid email",
               },
             })}

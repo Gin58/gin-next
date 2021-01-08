@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { auth, db } from "src/config/firebase";
 interface SignUpData {
@@ -6,6 +7,7 @@ interface SignUpData {
   password: string;
 }
 const SignUpForm: React.FC = () => {
+  const [user, setUser] = useState(null);
   const { register, errors, handleSubmit } = useForm();
 
   const createUser = (user: any) => {
@@ -13,8 +15,10 @@ const SignUpForm: React.FC = () => {
       .collection("users")
       .doc(user.uid)
       .set(user)
-      .then(() => console.log("Success"))
-      .catch((error) => console.log(error));
+      .then(() => setUser(user))
+      .catch((error) => {
+        return { error };
+      });
   };
 
   const signUp = (data: SignUpData) => {

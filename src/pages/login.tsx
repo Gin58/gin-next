@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LoginForm from "src/components/LoginForm";
 const LoginPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center bg-gray-200">
@@ -15,7 +16,7 @@ const LoginPage: React.FC = () => {
           </p>
         </div>
         <div className="mt-8 bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          Todo: Create Login form component and add here
+          <LoginForm />
         </div>
       </div>
     </div>
