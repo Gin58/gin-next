@@ -1,13 +1,13 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { auth, db } from "src/config/firebase";
+
 interface SignUpData {
   name: string;
   email: string;
   password: string;
 }
-const SignUpForm: React.FC = () => {
-  const [user, setUser] = useState(null);
+
+export const SignUpForm: React.FC = () => {
   const { register, errors, handleSubmit } = useForm();
 
   const createUser = (user: any) => {
@@ -15,7 +15,9 @@ const SignUpForm: React.FC = () => {
       .collection("users")
       .doc(user.uid)
       .set(user)
-      .then(() => setUser(user))
+      .then((res) => {
+        return { res };
+      })
       .catch((error) => {
         return { error };
       });
@@ -35,7 +37,7 @@ const SignUpForm: React.FC = () => {
 
   const onSubmit = (data: SignUpData) => {
     return signUp(data).then((user) => {
-      console.log(user);
+      return { user };
     });
   };
 
@@ -111,4 +113,3 @@ const SignUpForm: React.FC = () => {
     </form>
   );
 };
-export default SignUpForm;
