@@ -2,6 +2,7 @@ import "src/styles/globals.css";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { AuthProvider } from "../hooks/useAuth";
 
 const App = (props: AppProps) => {
   return (
@@ -9,7 +10,9 @@ const App = (props: AppProps) => {
       <Head>
         <title>nexst</title>
       </Head>
-      <props.Component {...props.pageProps} />
+      <AuthProvider>
+        <props.Component {...props.pageProps} />
+      </AuthProvider>
     </>
   );
 };
