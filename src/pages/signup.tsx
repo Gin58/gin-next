@@ -1,6 +1,17 @@
+import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
-import SignUpForm from "src/components/SignUpForm";
+import { useEffect } from "react";
+import { SignUpForm } from "src/components/SignUpForm";
+import { auth } from "src/config/firebase";
+
 const SignUpPage: React.FC = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      user && router.push("/");
+    });
+  }, []);
   return (
     <div className="min-h-screen flex bg-gray-200">
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -9,7 +20,7 @@ const SignUpPage: React.FC = () => {
           <p className="mt-2 text-center text-md text-gray-600">
             already have an account?{" "}
             <Link href="/login">
-              <a href="#" className="text-blue-500">
+              <a href="/#" className="text-blue-500">
                 Log in
               </a>
             </Link>
@@ -22,4 +33,5 @@ const SignUpPage: React.FC = () => {
     </div>
   );
 };
+
 export default SignUpPage;

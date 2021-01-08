@@ -1,7 +1,9 @@
-import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+
+import firebase from "firebase/app";
+
 export const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -14,11 +16,11 @@ export const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-console.log(firebaseConfig);
-const app = firebase.app();
+
+// const app = firebase.app();
 const auth = firebase.auth();
 const db = firebase.firestore();
 const now = firebase.firestore.Timestamp.now();
 const storage = firebase.storage();
 export { auth, db, now, storage };
-console.log(app.name ? "Firebase Mode Activated!" : "Firebase not working :(");
+// console.log(app.name ? "Firebase Mode Activated!" : "Firebase not working :(");

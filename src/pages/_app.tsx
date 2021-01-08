@@ -2,7 +2,9 @@ import "src/styles/globals.css";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { AuthProvider } from "../hooks/useAuth";
+
+// import { AuthProvider } from "../hooks/useAuth";
+import { AuthProvider } from "../context/Auth";
 
 const App = (props: AppProps) => {
   return (

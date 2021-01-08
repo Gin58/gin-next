@@ -1,16 +1,27 @@
 import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
-import { useAuth } from "src/hooks/useAuth";
+import { auth } from "src/config/firebase";
+
 interface LoginData {
   email: string;
   password: string;
 }
-const LoginForm: React.FC = () => {
+export const LoginForm: React.FC = () => {
   const { register, errors, handleSubmit } = useForm();
-  const auth = useAuth();
   const router = useRouter();
+  const signIn = (data: LoginData) => {
+    const { email, password } = data;
+    return auth
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+        return { response };
+      })
+      .catch((err) => {
+        return { err };
+      });
+  };
   const onSubmit = (data: LoginData) => {
-    return auth.signIn(data).then(() => {
+    return signIn(data).then(() => {
       router.push("/dashboard");
     });
   };
@@ -71,4 +82,3 @@ const LoginForm: React.FC = () => {
     </form>
   );
 };
-export default LoginForm;

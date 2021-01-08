@@ -1,5 +1,7 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import firebase from "firebase";
+import type firebase from "firebase";
+import type { ReactNode } from "react";
+import { createContext, useContext, useState } from "react";
+
 import { auth, db } from "../config/firebase";
 
 interface SignUpData {
@@ -20,7 +22,9 @@ const useAuthProvider = () => {
       .collection("users")
       .doc(user.uid)
       .set(user)
-      .then(() => setUser(user))
+      .then(() => {
+        return setUser(user);
+      })
       .catch((error) => {
         return { error };
       });
@@ -64,10 +68,10 @@ type AuthContextProps = {
 const authContext = createContext<AuthContextProps>({ user: undefined });
 const { Provider } = authContext;
 
-export function AuthProvider(props: { children: ReactNode }): JSX.Element {
+export const AuthProvider = (props: { children: ReactNode }): JSX.Element => {
   const auth = useAuthProvider();
   return <Provider value={auth}>{props.children}</Provider>;
-}
+};
 
 export const useAuth: any = () => {
   return useContext(authContext);
