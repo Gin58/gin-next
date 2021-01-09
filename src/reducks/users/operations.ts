@@ -1,7 +1,7 @@
-import { Dispatch } from "redux";
+import type { Dispatch } from "redux";
 import { auth, db, now } from "src/config/firebase";
 // import { initialState } from "src/reducks/store/types";
-import { LoginData, SignUpData } from "src/reducks/users/types";
+import type { LoginData, SignUpData } from "src/reducks/users/types";
 import { signInAction } from "src/reducks/users/usersSlice";
 
 export const signIn = (data: LoginData) => {
@@ -33,7 +33,6 @@ export const signIn = (data: LoginData) => {
 
 export const signUp = (data: SignUpData) => {
   const { username, email, password } = data;
-  console.log(data);
   return async () => {
     if (username === "" || email === "" || password === "") {
       alert("必須項目が未入力です");

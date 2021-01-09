@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { userState } from "src/reducks/users/types";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import type { userState } from "src/reducks/users/types";
 
 const initialState: userState = {
   authenticated: false,

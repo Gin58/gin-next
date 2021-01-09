@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Spinner } from "src/components/UIkit/Spinner";
-import { auth, db } from "src/config/firebase";
+import { auth } from "src/config/firebase";
 import { AuthContext } from "src/context/Auth";
 
 const DashBoardPage: React.FC = () => {

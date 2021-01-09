@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { signUp } from "src/reducks/users/operations";
-import { SignUpData } from "src/reducks/users/types";
+import type { SignUpData } from "src/reducks/users/types";
 
 export const SignUpForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -82,7 +82,9 @@ export const SignUpForm: React.FC = () => {
             name="confirmPassword"
             ref={register({
               required: "Please enter a confirmPassword",
-              validate: (value) => value === watch("password") || "The passwords do not match",
+              validate: (value) => {
+                return value === watch("password") || "The passwords do not match";
+              },
             })}
           />
           {errors.confirmPassword && <div className="mt-2 text-xs text-red-600">{errors.confirmPassword.message}</div>}

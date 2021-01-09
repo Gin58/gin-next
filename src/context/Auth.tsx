@@ -2,7 +2,7 @@ type User = userState;
 import type { FC } from "react";
 import { createContext, useEffect, useState } from "react";
 import { auth, db } from "src/config/firebase";
-import { userState } from "src/reducks/users/types";
+import type { userState } from "src/reducks/users/types";
 
 type AuthContextProps = {
   currentUser: User | undefined;
