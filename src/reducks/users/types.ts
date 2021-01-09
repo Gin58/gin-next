@@ -13,4 +13,5 @@ export type userState = {
   authenticated: boolean;
   uid: string;
   username: string;
+  email: string;
 };
