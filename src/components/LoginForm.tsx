@@ -1,29 +1,17 @@
 import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
+import { useDispatch } from 'react-redux';
 import { auth } from "src/config/firebase";
+import { signIn } from "src/reducks/users/operations";
+import { LoginData } from "src/reducks/users/types";
 
-interface LoginData {
-  email: string;
-  password: string;
-}
 export const LoginForm: React.FC = () => {
   const { register, errors, handleSubmit } = useForm();
   const router = useRouter();
-  const signIn = (data: LoginData) => {
-    const { email, password } = data;
-    return auth
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        return { response };
-      })
-      .catch((err) => {
-        return { err };
-      });
-  };
+  const dispatch = useDispatch()
+
   const onSubmit = (data: LoginData) => {
-    return signIn(data).then(() => {
-      router.push("/dashboard");
-    });
+    dispatch(signIn(data))
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
