@@ -2,9 +2,10 @@ import "src/styles/globals.css";
 
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { Provider } from "react-redux";
 
-// import { AuthProvider } from "../hooks/useAuth";
 import { AuthProvider } from "../context/Auth";
+import store from "../reducks/store/store";
 
 const App = (props: AppProps) => {
   return (
@@ -12,9 +13,11 @@ const App = (props: AppProps) => {
       <Head>
         <title>nexst</title>
       </Head>
-      <AuthProvider>
-        <props.Component {...props.pageProps} />
-      </AuthProvider>
+      <Provider store={store}>
+        <AuthProvider>
+          <props.Component {...props.pageProps} />
+        </AuthProvider>
+      </Provider>
     </>
   );
 };
