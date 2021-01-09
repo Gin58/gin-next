@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { auth } from "src/config/firebase";
 import { signIn } from "src/reducks/users/operations";
 import { LoginData } from "src/reducks/users/types";
@@ -8,10 +8,10 @@ import { LoginData } from "src/reducks/users/types";
 export const LoginForm: React.FC = () => {
   const { register, errors, handleSubmit } = useForm();
   const router = useRouter();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onSubmit = (data: LoginData) => {
-    dispatch(signIn(data))
+    dispatch(signIn(data));
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

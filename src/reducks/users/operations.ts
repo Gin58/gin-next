@@ -7,7 +7,7 @@ import { signInAction } from "src/reducks/users/usersSlice";
 export const signIn = (data: LoginData) => {
   // const state = getState();
   // console.log(state)
-  const { email, password } = data
+  const { email, password } = data;
   return async (dispatch: Dispatch) => {
     await auth.signInWithEmailAndPassword(email, password).then((result) => {
       const user = result.user;
