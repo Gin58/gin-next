@@ -3,6 +3,12 @@ export interface LoginData {
   password: string;
 }
 
+export interface SignUpData {
+  email: string;
+  password: string;
+  username: string;
+}
+
 export type userState = {
   authenticated: boolean;
   uid: string;

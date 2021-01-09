@@ -1,57 +1,27 @@
 import { useForm } from "react-hook-form";
-import { auth, db } from "src/config/firebase";
-
-interface SignUpData {
-  name: string;
-  email: string;
-  password: string;
-}
+import { useDispatch } from "react-redux";
+import { signUp } from "src/reducks/users/operations";
+import { SignUpData } from "src/reducks/users/types";
 
 export const SignUpForm: React.FC = () => {
-  const { register, errors, handleSubmit } = useForm();
-
-  const createUser = (user: any) => {
-    return db
-      .collection("users")
-      .doc(user.uid)
-      .set(user)
-      .then((res) => {
-        return { res };
-      })
-      .catch((error) => {
-        return { error };
-      });
-  };
-
-  const signUp = (data: SignUpData) => {
-    const { name, email, password } = data;
-    return auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        return createUser({ uid: response.user?.uid, email, name });
-      })
-      .catch((err) => {
-        return { err };
-      });
-  };
+  const dispatch = useDispatch();
+  const { register, errors, handleSubmit, watch } = useForm();
 
   const onSubmit = (data: SignUpData) => {
-    return signUp(data).then((user) => {
-      return { user };
-    });
+    dispatch(signUp(data));
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="rounded-md shadow-sm">
-        <label htmlFor="name" className="block text-sm font-medium leading-5 text-gray-700">
+        <label htmlFor="username" className="block text-sm font-medium leading-5 text-gray-700">
           Name
         </label>
         <input
-          id="name"
+          id="username"
           className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
           type="text"
-          name="name"
+          name="username"
           ref={register({
             required: "Please enter an name",
           })}
@@ -98,6 +68,24 @@ export const SignUpForm: React.FC = () => {
             })}
           />
           {errors.password && <div className="mt-2 text-xs text-red-600">{errors.password.message}</div>}
+        </div>
+      </div>
+      <div className="mt-6">
+        <label htmlFor="confirmPassword" className="block text-sm font-medium leading-5 text-gray-700">
+          Confirm Password
+        </label>
+        <div className="mt-1 rounded-md shadow-sm">
+          <input
+            id="confirmPassword"
+            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+            type="password"
+            name="confirmPassword"
+            ref={register({
+              required: "Please enter a confirmPassword",
+              validate: (value) => value === watch("password") || "The passwords do not match",
+            })}
+          />
+          {errors.confirmPassword && <div className="mt-2 text-xs text-red-600">{errors.confirmPassword.message}</div>}
         </div>
       </div>
       <div className="mt-6">

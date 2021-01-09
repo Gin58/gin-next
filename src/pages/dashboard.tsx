@@ -10,19 +10,19 @@ const DashBoardPage: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
   const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-    if (currentUser) {
-      db.collection("users")
-        .doc(currentUser.uid)
-        .get()
-        .then((snapshot) => {
-          const data = snapshot.data();
-          setUser(data);
-        });
-    } else {
-      router.push("/login");
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     db.collection("users")
+  //       .doc(currentUser.uid)
+  //       .get()
+  //       .then((snapshot) => {
+  //         const data = snapshot.data();
+  //         setUser(data);
+  //       });
+  //   } else {
+  //     router.push("/login");
+  //   }
+  // }, [user]);
 
   const signOut = () => {
     auth.signOut().then(() => {
