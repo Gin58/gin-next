@@ -6,13 +6,8 @@ const Home = () => {
   const { currentUser } = useContext(AuthContext);
   return (
     <Layout>
-      <button
-        className="btn-blue"
-        onClick={() => {
-          window.alert("Hello, World!");
-        }}
-      >
-        Button
+      <button>
+        { currentUser }
       </button>
     </Layout>
   );
