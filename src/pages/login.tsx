@@ -8,15 +8,16 @@ import { AuthContext } from "src/context/Auth";
 const LoginPage: React.FC = () => {
   const router = useRouter();
   const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
 
-  useEffect(() => {
-    if (currentUser) {
-      router.push("/");
-    }
-    auth.onAuthStateChanged((user) => {
-      user && router.push("/");
-    });
-  }, []);
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     router.push("/");
+  //   }
+  //   auth.onAuthStateChanged((user) => {
+  //     user && router.push("/");
+  //   });
+  // }, []);
 
   return (
     <div className="min-h-screen flex flex-col justify-center bg-gray-200">
